@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #f4f4f9, #dcdcf3);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #007BFF;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input[type="file"],
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+#error {
+    color: red;
+    margin-top: 10px;
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 10px;
+    display: flex;
+    justify-content: center; /* Centraliza o conteúdo */
+    align-items: center; /* Alinha o texto e a imagem verticalmente */
+    gap: 10px; /* Adiciona um espaço entre o texto e a imagem */
+}
+
+.logo {
+    width: 70px;
+}
+
+
+

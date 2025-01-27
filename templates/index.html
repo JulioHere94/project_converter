@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de CSV</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Conversor - CSV ⇄ Excel</h1>
+        <form id="fileForm" method="POST" enctype="multipart/form-data">
+            <label for="file">Escolha o arquivo:</label>
+            <input type="file" id="file" name="file" required>
+            
+            <label for="conversionType">Tipo de conversão:</label>
+            <select id="conversionType" name="conversionType" required>
+                <option value="excel_to_csv">Excel para CSV</option>
+                <option value="csv_to_excel">CSV para Excel</option>
+            </select>
+            
+            <button type="submit">Converter</button>
+        </form>
+        <div id="statusMessage"></div>
+    </div>
+    <footer class="footer">
+        <h2>Desenvolvido por:</h2>
+        <a href="https://github.com/brunofelipe" target="_blank"><img src="../static/images/logo.png" class="logo"></a>
+    </footer>
+
+    <script>
+        $("#fileForm").on("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            $.ajax({
+                url: "/convert",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                xhrFields: {
+                    responseType: 'blob' // Importante para downloads de arquivos
+                },
+                beforeSend: function () {
+                    $("#statusMessage").html("Processando...");
+                },
+                success: function (response) {
+                    const blob = new Blob([response], { type: 'application/octet-stream' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = "arquivo_convertido";
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    $("#statusMessage").html("Arquivo convertido com sucesso!");
+                },
+                error: function (xhr) {
+                    const error = xhr.responseJSON ? xhr.responseJSON.error : "Erro desconhecido.";
+                    $("#statusMessage").html(`<div class='error'>Erro: ${error}</div>`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
